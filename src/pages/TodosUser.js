@@ -1,27 +1,26 @@
 import React from 'react'
 import Nav from '../components/Nav'
-import PostsList from '../components/PostsList'
 import Loading from '../components/Loading'
+import TodosUserList from '../components/TodosUserList'
 
-
-class Posts extends React.Component {
-
+class TodosUser extends React.Component {
     state = {
-        data: '',
-        currentPage: 1,
-        postPerPage: 1,
+        data: {},
         error: null,
         loading: true,
     }
 
     componentDidMount = async () => {
-        this.fetchData()
+        const { id } = this.props.match.params //Con esto tomo el parametro de LINK
+        this.fetchData(id)
     }
 
-    fetchData = async () => {
+
+    fetchData = async (id) => {
         try {
-            let res = await fetch(`https://jsonplaceholder.typicode.com/posts`)
+            let res = await fetch(`https://jsonplaceholder.typicode.com/todos?userId=${id}`)
             let data = await res.json()
+
             this.setState({
                 data,
                 loading: false,
@@ -42,13 +41,11 @@ class Posts extends React.Component {
             <div>
                 <Nav />
                 <div className="container-fluid">
-                    <PostsList posts={this.state.data} />
+                    <TodosUserList todos={this.state.data} />
                 </div>
             </div>
         )
     }
-
-
 }
 
-export default Posts
+export default TodosUser

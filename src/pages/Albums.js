@@ -1,15 +1,12 @@
 import React from 'react'
 import Nav from '../components/Nav'
-import PostsList from '../components/PostsList'
 import Loading from '../components/Loading'
+import AlbumsList from '../components/AlbumsList'
 
-
-class Posts extends React.Component {
-
+class Albums extends React.Component {
     state = {
         data: '',
-        currentPage: 1,
-        postPerPage: 1,
+        users: '',
         error: null,
         loading: true,
     }
@@ -18,12 +15,16 @@ class Posts extends React.Component {
         this.fetchData()
     }
 
+
     fetchData = async () => {
         try {
-            let res = await fetch(`https://jsonplaceholder.typicode.com/posts`)
+            let res = await fetch(`https://jsonplaceholder.typicode.com/albums`)
             let data = await res.json()
+            let restwo = await fetch(`https://jsonplaceholder.typicode.com/users`)
+            let users = await restwo.json()
             this.setState({
                 data,
+                users,
                 loading: false,
             })
         } catch (error) {
@@ -42,13 +43,12 @@ class Posts extends React.Component {
             <div>
                 <Nav />
                 <div className="container-fluid">
-                    <PostsList posts={this.state.data} />
+                    <AlbumsList albums={this.state.data} users={this.state.users} />
                 </div>
             </div>
         )
     }
 
-
 }
 
-export default Posts
+export default Albums

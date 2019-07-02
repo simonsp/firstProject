@@ -15,6 +15,9 @@ const Nav = () => (
                 <li className="nav-item active">
                     <Link className="nav-link" to="/posts"> Posts <span className="sr-only">(current)</span></Link>
                 </li>
+                <li className="nav-item active">
+                    <Link className="nav-link" to="/albums"> Albums <span className="sr-only">(current)</span></Link>
+                </li>
             </ul>
         </div>
     </nav >

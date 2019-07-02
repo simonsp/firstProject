@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-class PostLists extends React.Component {
+class PostsList extends React.Component {
     render() {
         const { posts } = this.props
         return (
@@ -36,4 +36,4 @@ class PostLists extends React.Component {
 }
 
 
-export default PostLists
+export default PostsList

@@ -7,6 +7,7 @@ class Post extends React.Component {
     state = {
         data: '',
         userdata: '',
+        commentsData: '',
         loading: true,
         error: null,
     }
@@ -22,10 +23,13 @@ class Post extends React.Component {
             let data = await res.json()
             let restwo = await fetch(`https://jsonplaceholder.typicode.com/users/${data.userId}`)
             let userdata = await restwo.json()
+            let resthree = await fetch(`https://jsonplaceholder.typicode.com/comments?postId=${data.id}`)
+            let commentsData = await resthree.json()
 
             this.setState({
                 data,
                 userdata,
+                commentsData,
                 loading: false,
             })
 
@@ -45,7 +49,7 @@ class Post extends React.Component {
             <div>
                 <Nav />
                 <div className="container-fluid">
-                    <PostCard post={this.state.data} user={this.state.userdata} />
+                    <PostCard post={this.state.data} user={this.state.userdata} comments={this.state.commentsData} />
                 </div>
             </div>
         )

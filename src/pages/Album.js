@@ -1,31 +1,30 @@
 import React from 'react'
 import Nav from '../components/Nav'
-import PostsList from '../components/PostsList'
 import Loading from '../components/Loading'
+import PhotoCard from '../components/PhotoCard.js'
 
-
-class Posts extends React.Component {
-
+class Album extends React.Component {
     state = {
         data: '',
-        currentPage: 1,
-        postPerPage: 1,
-        error: null,
         loading: true,
+        error: null,
     }
 
     componentDidMount = async () => {
-        this.fetchData()
+        const { id } = this.props.match.params
+        this.fetchData(id)
     }
 
-    fetchData = async () => {
+    fetchData = async (id) => {
         try {
-            let res = await fetch(`https://jsonplaceholder.typicode.com/posts`)
+            let res = await fetch(`https://jsonplaceholder.typicode.com/photos?albumId=${id}`)
             let data = await res.json()
+
             this.setState({
                 data,
                 loading: false,
             })
+
         } catch (error) {
             this.setState({
                 loading: false,
@@ -38,17 +37,16 @@ class Posts extends React.Component {
         if (this.state.loading) {
             return <Loading />
         }
+
         return (
             <div>
                 <Nav />
                 <div className="container-fluid">
-                    <PostsList posts={this.state.data} />
+                    <PhotoCard photos={this.state.data} />
                 </div>
             </div>
         )
     }
-
-
 }
 
-export default Posts
+export default Album
